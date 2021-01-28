@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 2 - User Defined Functions                              %
+%   Due 2February2021                                           %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 2 - User-Defined Functions}
+\author{Ethan Reeder}
+\date{26 January 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=C}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab is to introduce functions defined by the user in Python and to plot and implement them with signal operations, including time shifting, time scaling, time reversal, signal addition, and discrete differentiation.
+
+\section{Part 1}
+
+Part 1 was the most basic task in this lab. All that was required was graphing the cosine function, which is included in the NumPy python library, versus time from 0 to 10 seconds, as shown in the plot below.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{cos function.png}
+    \caption{Cosine Function Plot}
+\end{figure}
+
+\section{Part 2}
+
+Part 2 required defining the step and ramp functions in Python. Those functions are given below in mathematical terms as:
+
+$$ u(t) =   0 \; when \; t < 0, 1 \; when \; t >= 0 $$
+
+$$ r(t) =   0 \; when \; t < 0, t \; when \; t >= 0 $$
+
+Plots for the basics step and ramp functions are given below in Figures 2 and 3.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{step function.png}
+    \caption{Step Function Plot}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{ramp function.png}
+    \caption{Ramp Function Plot}
+\end{figure}
+
+\newpage
+
+Then, these functions were combined to create the function that gives the output shown below in Figure 4.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{plot for lab 2.png}
+    \caption{Plot for Combined Functions}
+\end{figure}
+
+\section{Part 3}
+
+For Part 3, the final function in Part 2 was modified with various signal operations, shown in the plots below.
+
+Time Reversal by inverting t:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{f(-t).png}
+    \caption{Time Reversal to f(t)}
+\end{figure}
+
+\newpage
+
+Time Shift to the right by 4 to the original function and the time-reversed function:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{f(t-4).png}
+    \caption{Time Shift of f(t) to f(t-4)}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{f(-t-4).png}
+    \caption{Time Reversal and Shift of f(t) to f(-t-4)}
+\end{figure}
+
+\newpage
+
+Time Scaling by 2 in both directions:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{f(t div 2).png}
+    \caption{Time Scale of f(t) to f(t/2)}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{f(t tim 2).png}
+    \caption{Time Scale of f(t) to f(2t)}
+\end{figure}
+
+\newpage
+
+Derivative of f(t):
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.1]{hand derivative.jpg}
+    \caption{Hand-Drawn Derivative of f(t)}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{derivative plot.png}
+    \caption{Computer-plotted Derivative of f(t) compared to f(t)}
+\end{figure}
+
+\newpage
+
+\section{Questions}
+
+1. Are the plots from Part 3 Task 4 and Part 3 Task 5 identical?  Is it possible for them to match?  Explain why or why not.
+
+The plots, shown in Figures 10 and 11, are almost identical. However, they can never be perfectly identical due to the fact that the impulse function goes up to infinity momentarily, which is hard to model on a finite plot space.
+
+2. How does the correlation between the two plots (from Part 3 Task 4 and Part 3 Task 5) change if you were to change the step size within the time variable in Task 5?  Explain why this happens.
+
+The plots' correlation would not change if the step size within the time variable was changed, unless the step size was increase above one step per second.
+
+3. Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+Tasks, expectations, and deliverables were clearly communicated and accomplished without any severe difficulties.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+This lab was a good introduction to user-defined functions, and helped solidify my knowledge with plotting in Python. Everything was relatively straightforward except the derivative function at the end due to lack of experience with the diff() function.
+
+\end{document}
