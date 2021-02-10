@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 4 - System Step Response using Convolution              %
+%   Due 16February2021                                          %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 4 - System Step Response using Convolution}
+\author{Ethan Reeder}
+\date{9 February 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to get more familiar with convolution and how it can be used to find the step response of a system.
+
+\section{Procedure}
+This lab began by using the code for the step from Lab 2 to create the following functions in Python:
+
+\begin{equation}
+    h_1(t) = e^(2t) * u(1-t)
+\end{equation}
+
+\begin{equation}
+    h_2(t) = u(t-2) - u(t-6)
+\end{equation}
+
+\begin{equation}
+    h_3(t) = cos(\omega_0 t) * u(t)
+\end{equation}
+
+Given that $f_0 = 0.25 Hz$
+
+These functions were then graphed, and the plots are in Figure 1 in the Results section.
+
+Next, these functions were convolved with the step function to determine the step response using the convolution function created in Lab 3. The graphs for these responses are shown in Figures 2 through 4 in the Results section. Additionally, the equations for the response were derived from Equations 1 through 3 in the Equations section, and these were then graphed on the same plot as the computer-calculated convolutions to compare.
+
+\section{Equations}
+
+\begin{equation}
+    y_1(t) = \int_{-\infty}^{\infty} [e^{2\tau} * u(1-\tau)] * u(t-\tau) \, d\tau
+\end{equation}
+
+\begin{equation}
+    y_2(t) = \int_{-\infty}^{\infty} [u(\tau-2) - u(\tau-6)] * u(t-\tau) \, d\tau
+\end{equation}
+
+\begin{equation}
+    y_3(t) = \int_{-\infty}^{\infty} [cos(\omega_0 \tau) * u(\tau)] * u(t-\tau) \, d\tau
+\end{equation}
+
+\section{Results}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{part 1 task 2.png}
+    \caption{Plots of h1, h2, and h3}
+\end{figure}
+
+\begin{equation}
+    y_1(t) = \frac{1}{2} * e^{2t} * u(1-t) + e^{2} * u(t-1)
+\end{equation}
+
+\begin{equation}
+    y_2(t) = (t-2) * u(t-2) - (t-6) * u(t-6)
+\end{equation}
+
+\begin{equation}
+    y_3(t) = \frac{1}{\omega_0} * sin(\omega_0 t) * u(t)
+\end{equation}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.35]{step response h1t.png}
+    \caption{Step Response to h1(t)}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.35]{step response h2t.png}
+    \caption{Step Response to h2(t)}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.35]{step response h3t.png}
+    \caption{Step Response to h3(t)}
+\end{figure}
+
+\newpage
+
+\section{Questions}
+
+Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+The lab was clear and the expectations were understood.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\newpage
+
+\section{Conclusion}
+
+In conclusion, this lab was a useful expansion upon last lab. It shows how step responses work, and also solidified the connection between analytical (equation-based) convolution and the graphs and functions that are created in Python. One thing to note is that the graphs for the equation-based convolutions only go up to t=10, which is because that's the domain of t, and the convolution function uses the base of tExtended in order to calculate the convolution.
+
+\end{document}
