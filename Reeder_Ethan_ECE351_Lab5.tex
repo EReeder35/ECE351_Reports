@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 5 - Step and Impulse Response of a RLC Bandpass Filter  %
+%   Due 2March2021                                              %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 5 - Step and Impulse Response of a RLC Bandpass Filter}
+\author{Ethan Reeder}
+\date{2 March 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to use Laplace transformations to find the time-domain response of an RLC bandpass filter to both impulse and step inputs.
+
+\section{Procedure}
+
+This lab began with a prelab calculating the transfer function and the impulse response of the circuit shown in Figure 1.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=1]{schematic.PNG}
+    \caption{Prelab Schematic}
+\end{figure}
+
+Then, for the lab, there were two parts. The first was graphing the derived equation for the impulse response from the prelab together with the impulse function contained in the scipy library on the same plot and comparing them. These are shown in Figure 2 in the Results section. Then the scipy library command to find the step response, as shown graphed in Figure 3 in the Results section.
+
+Finally, the Final Value Theorem was applied to the step response, as shown in Equation 1 in the Results section.
+
+\newpage
+
+\section{Results}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{task 1 plots.png}
+    \caption{Plots of Hand-Derived and Computer-Calculated Impulse Response}
+\end{figure}
+
+This figure shows that the hand-calculated transfer function from the prelab was identical to the impulse response done by the python command.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{task 2 plot.png}
+    \caption{Plot of Computer-Calculated Step Response}
+\end{figure}
+
+This figure shows that the step response has a very similar shape to the impulse response, but instead of starting at the high value, it increases from 0 to the peak before following the same trend as the impulse response.
+
+\begin{equation}
+    \lim_{s \to 0} \frac{s * \frac{1}{RC} * s}{s^2 + \frac{1}{RC}*s + \frac{1}{LC}} = \frac{0}{0 + 0 + \frac{1}{LC}} = 0
+\end{equation}
+
+\section{Questions}
+
+Explain the result of the Final Value Theorem from Part 2 Task 2 in terms of the physical circuit components.
+
+The Final Value Theorem shows the steady-state value of the transfer function as the time goes to infinity, due to the following property:
+
+\begin{equation}
+    \lim_{s \to 0} s*F(s) = \lim_{t \to \infty} f(t)
+\end{equation}
+
+Because of this, as s goes to 0, or as t goes to infinity, the transfer function of the output voltage over the input voltage reduces to 0. This makes sense because in a steady-state circuit, a capacitor is an open circuit and an inductor is an short circuit. The voltage drop across a short circuit, especially in series with a resistor, will be 0, this the FVT confirms what simple circuit analysis hypthesizes.
+
+Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+The lab was clear and the expectations were understood.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+In conclusion, this was another educational lab. The best part about it for me was getting practice making my own function to implement the sine method, which taught me a lot more about how to format code in Python.
+
+\end{document}
