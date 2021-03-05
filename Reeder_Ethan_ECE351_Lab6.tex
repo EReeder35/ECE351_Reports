@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 6 - Partial Fraction Expansion                          %
+%   Due 9March2021                                              %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 6 - Partial Fraction Expansion}
+\author{Ethan Reeder}
+\date{2 March 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to use Laplace transformations to find the time-domain response of an RLC bandpass filter to both impulse and step inputs.
+
+\section{Procedure}
+
+This lab began with a prelab calculating the transfer function and the step response of a differntial equation. These are shown in Equations 1 and 2 below:
+
+Transfer Function:
+
+\begin{equation}
+    H_{t}(s) = \frac{s^2+6s+12}{s^2+10s+24}
+\end{equation}
+
+Step Response:
+
+\begin{equation}
+    y(t) = [-\frac{1}{2} + e^{-6t} - \frac{1}{2} e^{-4t}] * u(t)
+\end{equation}
+
+Then, during the lab time, the step response function was graphed with the step command from the scipy.signal library and compared, as can be seen in Figure 1 in the Results section. Next, the residue command from the scipy.signal library was used to find the R, P, and K values necessary for partial fraction expansion. The output in the console is shown in the Appendix.
+
+Next, a more complex differential equation was given:
+
+\begin{equation}
+    y^{(5)}(t) + 18y^{(4)}(t) + 218y^{(3)}(t) + 2036y^{(2)}(t) + 9085y^{(1)}(t)_25250y(t) = 25250x(t)
+\end{equation}
+
+This differential equation was then put into the residue function, and the results were then input into the cosine method function in order to find the step response. This derived step response was then plotted on the same plot as the step response attained from using the step command, as shown in Figure 2 in the Results section. The output from the console for the residue function is shown in the Appendix.
+
+\newpage
+
+\section{Results}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.6]{part 1 step response.png}
+    \caption{Part 1 Step Response}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=1]{part 2 step response.png}
+    \caption{Part 2 Step Response}
+\end{figure}
+
+\newpage
+
+\section{Questions}
+
+For a non-complex pole-residue term, you can still use the cosine method, explain why this works.
+
+In the cosine method, the terms inside the cosine function are all due to imaginary parts, and thus they are 0 in a non-complex pole-residue term. Since cos(0) = 1, the cosine method still is valid and works, though it might be a little more involved than doing simple partial fraction expansion if all the terms are real.
+
+Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+The lab was clear and the expectations were understood.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+In conclusion, this was another educational lab. In addition to being able to practice making my own function to implement the cosine method, I also enjoyed working with arrays to pass into functions with the R, P, and K values from the residue function.
+
+\newpage
+
+\section{Appendix}
+
+Console Output:
+
+\begin{lstlisting}
+Part 1 R, P, and K Values:
+R:  [ 0.5 -0.5  1. ]
+P:  [ 0. -4. -6.]
+K:  []
+Part 2 R, P, and K Values:
+R:  [ 1.        -7.20391843e-17j -0.48557692+7.28365385e-01j
+ -0.48557692-7.28365385e-01j -0.21461963+0.00000000e+00j
+  0.09288674-4.76519337e-02j  0.09288674+4.76519337e-02j]
+P:  [  0. +0.j  -3. +4.j  -3. -4.j -10. +0.j  -1.+10.j  -1.-10.j]
+K:  []
+\end{lstlisting}
+
+\end{document}
