@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 8 - Fourier Series Approximation of a Square Wave       %
+%   Due 30March2021                                             %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 8 - Fourier Series Approximation of a Square Wave}
+\author{Ethan Reeder}
+\date{23 March 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to gain familiarity using Fourier series to approximate periodic time-domain signals.
+
+\section{Procedure}
+
+This lab began by examining the square wave function shown in Figure 1 shown below and the general equation for it shown in Equation 1 in the Equations section. In the preliminary work, the equations for $a_k$ and $b_k$ were calculated, and they are also shown in the Equations section.
+
+%% Square Wave Figure
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.6]{prelab square wave.PNG}
+    \caption{Given Square Wave Plot}
+\end{figure}
+
+% Part 1 Task 1
+
+With the $a_k$ and $b_k$ functions entered into Python, the values of $a_0$, $a_1$, $b_1$, $b_2$, and $b_3$ were calculated, as shown in the Appendix at the end of this report.
+
+% Part 1 Task 2
+
+Using the functions for $a_k$ and $b_k$, the Fourier series approximation was plotted with a period of T = 8s for a range of t = [0, 20]s. These plots are shown for values of N = {1, 3, 15, 50, 150, 1500} in the Results section.
+
+\section{Equations}
+
+\begin{equation}
+    x(t) = \frac{1}{2}a_0 + \sum_{k=1}^{\infty} a_k cos(k \omega_0 t) +  b_k sin(k \omega_0 t)
+\end{equation}
+
+\begin{equation}
+    a_k = 0
+\end{equation}
+
+\begin{equation}
+    b_k = \frac{2}{k \pi} (1 - cos(k \pi))
+\end{equation}
+
+\section{Results}
+
+% Graphs for the Series Approximation
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.65]{n 1 3 15.png}
+    \caption{Fourier Series Approximations for N = {1, 3, 15}}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.65]{n 50 150 1500.png}
+    \caption{Fourier Series Approximations for N = {50, 150, 1500}}
+\end{figure}
+
+\section{Questions}
+
+Is x(t) an even or an odd function? Explain why.
+
+x(t) is an odd function. This is because f(-t) = -f(t), which is the definition of an odd function.
+
+Based on your results from Task 1, what do you expect the values of $a_2$, $a_3$, ... , $a_n$ to be? Why?
+
+All values of $a_k$ will be 0 due to the fact that the function is odd, and the $a_k$ coefficient inherently models an even function.
+
+How does the approximation of the square wave change as the value of N increases? In what way does the Fourier series struggle to approximate the square wave?
+
+The approximation gets closer to the desired square wave as N increases, as can be seen as N changes from 1 to 1500. Even when N is 1500, the Fourier series can never stay a constant value. This is best illustrated in Figure 2 when N=15. The value still oscillates up and down, but the oscillation magnitude decreases. 
+
+What is occurring mathematically in the Fourier series summation as the value of N increases?
+
+As N increases, the series is having more and more functions to sum together to get a closer approximation. This is why when N=1, the approximation is just a cosine function, but as N increases, the approximation gets closer and closer to the square wave given in the lab handout.
+
+Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+The lab was clear and the expectations were understood.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+In conclusion, this lab was instrumental in developing my understanding of how Fourier series work. It was helpful to get more practice coding functions in Python, as well as to get some visual explanations of how Fourier series calculate things, as well as how they change as the N value increases.
+
+\newpage
+
+\section{Appendix}
+\begin{lstlisting}
+    a_0:  [0.]
+    a_1:  [0.]
+    b_1:  [1.27323954]
+    b_2:  [0.]
+    b_3:  [0.42441318]
+\end{lstlisting}
+
+\end{document}
