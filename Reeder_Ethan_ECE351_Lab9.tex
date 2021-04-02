@@ -1,0 +1,152 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 9 - Fast Fourier Transforms                             %
+%   Due 6April2021                                              %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 9 - Fast Fourier Transforms}
+\author{Ethan Reeder}
+\date{30 March 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to gain familiarity using Fourier series to approximate periodic time-domain signals.
+
+\section{Procedure}
+
+This lab began by creating a routine to determine a Fast Fourier Transform. This was done using the example code given in the lab handout, plus some formatting to make it a function in Python.
+
+Then, the following 3 functions were put through the function and then plotted, along with the magnitude and degree plots of the Fourier transform, all on the same figure, as seen in Figures 1 through 3 in the results section.
+
+\begin{equation}
+    cos(2 \pi t)
+\end{equation}
+
+\begin{equation}
+    5*sin(2 \pi t)
+\end{equation}
+
+\begin{equation}
+    2 * cos((2 \pi * 2t) - 2) + sin^2 ((2 \pi * 6t) +3)
+\end{equation}
+
+To make the data more clear, the small phase magnitudes were eliminated, as seen in Figures 4 through 6 in the results section.
+
+Finally, the function from Lab 8 at N=15 was put through the Fast Fourier Transform function and then plotted, as seen in Figure 7 of the results section.
+
+\newpage
+
+\section{Results}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{1 full.png}
+    \caption{Fast Fourier Transform of Equation 1}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{2 full.png}
+    \caption{Fast Fourier Transform of Equation 2}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{3 full.png}
+    \caption{Fast Fourier Transform of Equation 3}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{1 simple.png}
+    \caption{Simplified Fast Fourier Transform of Equation 1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{2 simple.png}
+    \caption{Fast Fourier Transform of Equation 3}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{3 simple.png}
+    \caption{Simplified Fast Fourier Transform of Equation 1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.45]{n 15 from lab 8.png}
+    \caption{Fourier Transform of Fourier Series at N=15 from Lab 8}
+\end{figure}
+
+\section{Questions}
+
+What happens if fs is lower? If it is higher? fs in your report must span a few orders of magnitude.
+
+If fs is higher, the graph of x(t) is smoother due to step size being the inverse of fs. When testing at fs = {10, 100, 1000}, I found that there was no additional change to the the plots besides the range of the unlimited ones increasing. This is due to the Fast Fourier Transform function multiplies calculates the frequency by multiplying by the frequency, which increases, then dividing by N, the length of x, which also decreases as the steps size decreases. Therefore, the total change to the frequency is canceled and the graphs remain the same.`
+
+What difference does eliminating the small phase magnitudes make?
+
+Eliminating the small phase magnitudes simplifies the graphs and allows for better data visualization. For example, with the first figure, where $f(t) = cos(2 \pi t)$, there are many phase angles in the subplot that correspond to frequencies where the magnitude is 0 or nearly 0. If the magnitude is 0 or nearly 0, the amount that it's shifted doesn't really matter, and eliminating those results does not affect the approximation to any significant degree.
+
+Verify the results from Tasks 1 and 2 using the Fourier Transforms of sine and cosine. Explain why results are correct. 
+
+Fourier Transform of $cos(2 \pi t)$:
+
+\begin{equation}
+    \frac{1}{2} [\delta (f+1) + \delta (f-1)]
+\end{equation}
+
+Fourier Transform of $5*sin(2 \pi t)$:
+
+\begin{equation}
+    \frac{5*j}{2} [\delta (f+1) - \delta (f-1)]
+\end{equation}
+
+These transforms accurately reflect the graphs. The magnitudes and phases are correct, as can be seen from Figures 1 and 2 in the Results section.
+
+Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+The lab was clear and the expectations were understood.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+In conclusion, this was another educational lab for learning more Python skills and cementing my understanding of concepts from the lecture, especially the magnitudes and phases of the Fourier transforms of various functions.
+
+\end{document}
