@@ -1,0 +1,127 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 11 - Z-Transform Operations                             %
+%   Due 20April2021                                             %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 11 - Z-Transform Operations}
+\author{Ethan Reeder}
+\date{14 April 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to analyze a discrete system using some of Python's built-in functions and a z-plane function created by Christopher Felton.
+
+\section{Procedure}
+
+This lab began by giving the following causal function:
+
+\begin{equation}
+    y[k] = 2x[k] - 40x[k-1] + 10y[k-1] - 16y[k-2]
+\end{equation}
+
+From that equation, the transfer function, $H(z)$ was found, as shown in Equation 3 in the Methodology section.
+
+Then, the transfer function was converted back to the k-domain after partial fraction expansion, and the result is shown in Equation 5 in the Methodology section.
+
+After the hand-calculations were done, the scipy.signal.residuez() function was used to verify the partial fraction expansion. The outputs of this function can be seen in the Appendix at the end of this report, and they successfully verified the calculations.
+
+Next, the provided zplane() function was used to get a pole-zero plot of the transfer function, H(z), as can be seen in Figure 1 in the Results section. Finally, the scipy.signal.freqz() function was used to find the output of the transfer function at a range of frequencies, and then the bode plot was plotted, as seen in Figure 2 in the Results section.
+
+\section{Methodology}
+
+Finding the transfer function H(z) took two steps. First, the x's and y's were seperated onto either side of the equals sign:
+
+\begin{equation}
+    y[k] - 10y[k-1] + 16y[k-2] = 2x[k] - 40x[k-1]
+\end{equation}
+
+Then, transforming into the z-domain, we get:
+
+\begin{equation}
+    H(z) = \frac{Y(z)}{X(z)} = \frac{2z^2 - 40z}{z^2 - 10z + 16}
+\end{equation}
+
+After dividing a 'z' from both sides and performing partial fraction expansion on the right side, the result is:
+
+\begin{equation}
+    \frac{H(z)}{z} = -4 * \frac{1}{z-8} + 6 * \frac{1}{z-2}
+\end{equation}
+
+Converting back to the k-domain, we get:
+
+\begin{equation}
+    f[k] = [6 * 2^k - 4 * 8^k] * u[k]
+\end{equation}
+
+\section{Results}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{zplane poles and zeroes.png}
+    \caption{Plot from the z-plane function}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{bode plot.png}
+    \caption{Bode Plot}
+\end{figure}
+
+\section{Questions}
+
+Looking at the plot generated in Task 4, is H(z) stable? Explain why or why not.
+
+H(z) is unstable. This is because the two poles are at z=2 and z=8. Since they are greater than one, the function will increase exponentially to infinity, instead of decreasing to a finite number, zero, if they were below one, or inside the unit circle seen on the left-hand side of the plot in Figure 1.
+
+Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+
+The lab was clear and the expectations were understood.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+In conclusion, this lab, though fairly simple, was a good way of learning more about the utility of a z-transform, as well as the use of more functions in the scipy.signal library.
+
+\newpage
+
+\section{Appendix}
+
+Output from Task 3:
+
+\begin{lstlisting}
+Part 1 Task 3 R, P, and K Values
+R:  [ 6. -4.]
+P:  [2. 8.]
+K:  []
+\end{lstlisting}
+
+\end{document}
