@@ -1,0 +1,211 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%   Ethan Reeder                                                %
+%   ECE351-53                                                   %
+%   Lab 12 - Final Project - Filter Design                      %
+%   Due 20April2021                                             %
+%   Comments: None                                              %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{listings}
+
+\title{ECE 351 - Lab 12, Final Project - Filter Design}
+\author{Ethan Reeder}
+\date{28 April 2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Purpose}
+
+The purpose of this lab was to use the skills and coding experience taught in this lab in a practical application to filter a signal.
+
+\section{Procedure}
+
+The lab provided a .csv document that contained a noisy input signal, meant to simulate a real-world signal that a sensor would acquire. In the signal, there was the desired data from 1.8kHz-2.0kHz, along with noise at 60Hz, as well as high frequency noise (>2.0kHz) from a switching amplifier. The input signal is shown in Figure 1:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 1 - noisy input.png}
+    \caption{Noisy Input Signal}
+\end{figure}
+
+As is quite obvious from the graph, there is not much useful information that can be gained without using some kind of filter.
+
+Next, Fourier transforms were employed to determine the noise magnitudes and corresponding frequencies. This can be seen in Figures 3 through 6, seen in the Results section, along with explanations.
+
+A filter with the following specifications was then designed:
+
+\begin{enumerate}
+    \item Position measurement information (1.8kHz - 2.0kHz) is attenuated by less than -0.3dB
+    \item Low frequency noise (60Hz) must be attenuated by at least -30dB
+    \item High frequency noise from the switching amplifier must be attenuated by at least -21dB
+    \item All noise greater than 100kHz must be fully attenuated or be at most 0.05V
+\end{enumerate}
+
+These specifications resulted in the filter shown in Figure 2. The filter components were found with Alex Shipp, a classmate.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.75]{fig 15 - filter circuit.PNG}
+    \caption{Designed Filter}
+\end{figure}
+
+Using these filter parameters and the transfer function shown in Equation 1, bode plots for the filter were generated to show that the filter met the specifications, as shown in Figures 7 through 10 in the Results section.
+
+Finally, the noise input signal was passed through the the filter using the scipy.signal.bilinear and scipy.signal.lfilter commands. The noise magnitudes and corresponding frequencies at various frequency ranges are shown in Figures 11 through 14 in the Results section. Additionally, the full, filtered output signal is shown in Figure 15 in the Results section.
+
+\newpage
+
+\section{Results}
+
+\subsection{Fourier Transforms of Input Signal}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 2 - full freq fourier transform.png}
+    \caption{Fourier Transform over entire frequency range}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 3 - low freq f transform.png}
+    \caption{Fourier Transform over low frequency range ($<$1.8kHz)}
+\end{figure}
+
+The 60Hz noise can be seen quite clearly in this graph. Since it's not in the desired frequency band, it will need to be filtered.
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 4 - high freq f transform.png}
+    \caption{Fourier Transform over high frequency range ($>$2.0kHz)}
+\end{figure}
+
+All the data starting at around 6kHz and above is unrelated to the desired frequency, it must also be filtered.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 5 - band freq f transform.png}
+    \caption{Fourier Transform over desired frequency range (1.8kHz - 2.0kHz)}
+\end{figure}
+
+This is the desired data, as it is between 1.8kHz and 2.0kHz.
+
+\newpage
+
+\subsection{Bode Plots of Designed Filter}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.75]{fig 6 - band freq bode plot.png}
+    \caption{Bode Plot at the desired Bandpass}
+\end{figure}
+
+As can be seen, from 1.8kHz to 2.0kHz (the 5th and 6th vertical plot lines), the attenuation is less than -0.3 dB, satisfying Specification 1.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.75]{fig 7 - low freq bode plot.png}
+    \caption{Bode Plot of the low frequencies}
+\end{figure}
+
+At 60Hz, the low-frequency vibration, the attenuation is around -35 dB, satisfying Specification 2.
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.75]{fig 8 - high freq bode plot.png}
+    \caption{Bode Plot at the high frequencies}
+\end{figure}
+
+From Figure 5, the vast majority of the switching amplifier noise is found at around 50kHz. At 50kHz on this plot, the attenuation is around -30dB, satisfying Specification 3.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.75]{fig 9 - very high freq bode plot.png}
+    \caption{Bode Plot at the very high frequencies ($>$100kHz)}
+\end{figure}
+
+At 100kHz, the attenuation is about -40dB, and goes down to -100dB. This will result in a voltage of less than 0.05 so long as the input voltage is less than 500V, which it is, thereby satisfying Specification 4.
+
+\newpage
+
+\subsection{Fourier Transforms of Output Signal}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 10 - full freq filtered.png}
+    \caption{Fourier Transform of the filtered signal over entire frequency range}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 11 - low freq filtered.png}
+    \caption{Fourier Transform of the filtered signal over low frequency range}
+\end{figure}
+
+The 60Hz noise generated by the low-frequency vibration due to the building's HVAC is attenuated below 0.05V, thereby being negligable for the purposes of this lab.
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 12 - high freq filtered.png}
+    \caption{Fourier Transform of the filtered signal over high frequency range}
+\end{figure}
+
+All voltage levels in this graph are at or below 0.05V, thereby being attenuated to the proper degree.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 13 - band freq filtered.png}
+    \caption{Fourier Transform of the filtered signal over desired frequency range}
+\end{figure}
+
+As can be seen comparing Figure 14 with Figure 8. there is no visible change, or attenuation, due to passing through the filter.
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=.5]{fig 14 - clean output.png}
+    \caption{Filtered Output Signal}
+\end{figure}
+
+This signal is much cleaner than the one shown in Figure 1, and actually contains readable (and relevant) data. The visualization helps show that the filter eliminated noise to a sufficient degree to allow for proper measurement of the input.
+
+\section{Questions}
+
+Earlier this semester, you were asked what you personally wanted to get out of taking this course. Do you feel like that personal goal was met? Why or why not?
+
+At the beginning of the semester, I said that I wanted to gain a better understanding of Python and how to use it in a practical setting. I believe that I accomplished this goal. My Python skills have advanced quite a bit, specifically using loops and functions to achieve a variety of things.
+
+\section{GitHub Link}
+
+https://github.com/EReeder35
+
+\section{Conclusion}
+
+In conclusion, this final project was a very educational summation of many of the topics learned in this lab, especially using Fourier transforms, filters, and transfer functions in Python. Overall, the lab course was very educational, as I detailed above in the Questions section, and it was appreciated to get a real-world example of how to apply the topics learned for this final project.
+
+\end{document}
